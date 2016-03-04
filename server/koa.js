@@ -20,6 +20,11 @@ import sinon from 'sinon';
 import fs from 'fs-extra';
 import staticCache from 'koa-static-cache';
 import compress from 'koa-compress';
+import convert from 'koa-convert';
+
+import session from 'koa-generic-session';
+import passport from 'koa-passport';
+
 
 global.appConfig = config;
 
@@ -29,23 +34,29 @@ global.fs = fs;
 
 const {environment} = appConfig;
 const app = new koa();
-const convert = require('koa-convert');
 
-const jwt = require('koa-jwt');
 
 // do not use this secret for production
 const secret = config.secret;
 
-app.use(convert(koaBodyParser()));
-app.use(convert(jwt({ secret }).unless({
-  path: [/^(?!\/api\/)/]
-})));
+app.use(koaBodyParser());
+
 
 // setup rest models
 global.models = (new Models()).getDb();
 
 app.use(convert(responseTime()));
 app.use(logger());
+
+// sessions
+
+app.keys = ['your-session-secret']
+app.use(convert(session()))
+
+
+require('./auth')
+app.use(convert(passport.initialize()))
+app.use(convert(passport.session()))
 
 if (environment === 'production') {
   // set debug environment to `koa` only
@@ -69,7 +80,7 @@ if (environment === 'development') {
 // app.use(convert(mount('/public/assets/css', staticCache(path.join(__dirname, '../public/assets/css/'), {maxAge: 30 * 24 * 60 * 60}))));
 
 global.services = new Services();
-var controllers = new Controllers(app);
+var controllers = new Controllers(app, passport);
 
 
 app.use(async function (ctx, next) {

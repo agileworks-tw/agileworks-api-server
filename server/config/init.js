@@ -11,4 +11,6 @@ catch (error) {
   debug('dev')(`No specific configuration for env ${env}`);
 }
 
+debug('dev')('=== config ===', config);
+
 export default config.default;

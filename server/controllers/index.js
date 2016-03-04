@@ -1,4 +1,5 @@
 import mainController from './main';
+import AuthController from './auth';
 
 import Router from 'koa-router';
 import fs from 'fs';
@@ -6,10 +7,12 @@ import path from 'path';
 
 export default class Routes {
 
-  constructor (app) {
+  constructor (app, passport) {
     var router = new Router();
     this.router = router;
     this.app = app;
+    this.authController = new AuthController(passport);
+    this.passport = passport;
 
   }
 
@@ -18,8 +21,39 @@ export default class Routes {
     var publicRoute = new Router()
 
     publicRoute.get('/rest/hello/', mainController.hello);
+    publicRoute.get('/auth/login', (ctx) => {
+      this.render('login', {assets})
+    })
+
+    // publicRoute.post('/login',
+    //   this.passport.authenticate('local', {
+    //     successRedirect: '/',
+    //     failureRedirect: '/'
+    //   })
+    // )
+
+    publicRoute.get('/rest/auth/logout', function(ctx) {
+      ctx.logout()
+      ctx.redirect('/')
+    })
+
+    publicRoute.post('/rest/auth/login', this.authController.login.bind(this.authController));
+    publicRoute.get('/rest/auth/status', this.authController.status);
+
 
     app.use(publicRoute.middleware())
+
+    app.use(function(ctx, next) {
+      if (ctx.isAuthenticated()) {
+        return next()
+      } else {
+        ctx.redirect('/')
+      }
+    })
+
+    // app.use(route.get('/app', function(ctx) {
+    //
+    // }))
 
   }
 
