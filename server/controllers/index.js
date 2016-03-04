@@ -23,6 +23,7 @@ export default class Routes {
     var publicRoute = new Router()
 
     publicRoute.get('/rest/hello/', mainController.hello);
+    publicRoute.get('/', this.couponController.index);
     publicRoute.get('/coupon/index/', this.couponController.index);
     publicRoute.post('/rest/coupon/use/', this.couponController.use);
 
