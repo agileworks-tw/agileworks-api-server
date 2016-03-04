@@ -5,11 +5,14 @@ export default async (cb) => {
 
   try {
     let couponData = {
-      serial: '1111',
+      serial: '11111111',
       class: 'jenkins',
       authorizeType: 'normal'
     }
-    await models.Coupon.create(couponData);
+    await models.Coupon.findOrCreate({
+      where: {serial: couponData.serial},
+      defaults: couponData
+    });
 
   } catch (e) {
 
