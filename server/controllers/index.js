@@ -24,6 +24,7 @@ export default class Routes {
 
     publicRoute.get('/rest/hello/', mainController.hello);
     publicRoute.get('/coupon/index/', this.couponController.index);
+    publicRoute.post('/rest/coupon/use/', this.couponController.use);
 
 
     publicRoute.get('/rest/auth/logout', function(ctx) {
