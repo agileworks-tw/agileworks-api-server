@@ -11,10 +11,10 @@ export default class coupon {
 
     try {
       let {serial} = ctx.request.body;
-      let {id} = await services.coupon.use({serial})
+      let coupon = await services.coupon.use({serial})
 
       if(coupon)
-        return ctx.redirect(`auth/signup?couponId=${id}`);
+        return ctx.redirect(`/auth/signup/coupon/${serial}`);
       else throw new Error('serial not match');
 
     } catch (e) {

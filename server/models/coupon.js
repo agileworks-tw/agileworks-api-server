@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
     class: DataTypes.ENUM('jenkins', 'docker', 'TDD'),
-    type: DataTypes.ENUM('trial', 'normal')
+    authorizeType: DataTypes.ENUM('trial', 'normal')
   }, {
     classMethods: {
       associate: (models) => {

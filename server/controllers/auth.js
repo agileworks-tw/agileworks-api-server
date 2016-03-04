@@ -25,4 +25,13 @@ export default class Auth {
 
   };
 
+
+  signup(ctx, next){
+
+    let {serial} = ctx.params;
+
+    return next().then(()=>{
+      ctx.render('auth/signup.jade', {serial});
+    });
+  };
 }

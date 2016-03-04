@@ -1,4 +1,15 @@
 describe('auth', () => {
+  describe('sinup', function() {
+    it('should be add a user', function() {
+      let userData = {
+        email: 'test@gmail.com',
+        password: '123456',
+        username: 'test'
+      };
+      let result = await request.post("/rest/auth/register/").send(userData);
+
+    });
+  });
 
   describe('local login spec', () => {
 

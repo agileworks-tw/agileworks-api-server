@@ -27,16 +27,12 @@ describe.only("coupon", () => {
         let serial = '12345678';
         let result = await request.post("/rest/coupon/use/").send({serial});
 
-        result.headers.location.should.be.eq(`auth/signup?couponId=${coupon.id}`);
+        result.headers.location.should.be.eq(`/auth/signup/coupon/${coupon.serial}`);
         result.statusCode.should.be.eq(302);
-
-
-
         done();
       } catch (e) {
         done(e);
       }
-
     });
 
 

@@ -33,6 +33,7 @@ export default class Routes {
     })
 
     publicRoute.post('/rest/auth/login', this.authController.login.bind(this.authController));
+    publicRoute.get('/auth/signup/coupon/:serial', this.authController.signup);
     publicRoute.get('/rest/auth/status', this.authController.status);
 
 
