@@ -77,6 +77,9 @@ if (environment === 'development') {
 
 app.use(jade(path.join(__dirname, 'views')));
 
+
+app.use(convert(mount('/public/assets/css', staticCache(path.join(__dirname, '../public/assets/css/'), {maxAge: 30 * 24 * 60 * 60}))));
+app.use(convert(mount('/public/assets/images', staticCache(path.join(__dirname, '../public/assets/images/'), {maxAge: 30 * 24 * 60 * 60}))));
 global.services = new Services();
 var controllers = new Controllers(app, passport);
 

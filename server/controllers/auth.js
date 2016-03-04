@@ -12,7 +12,6 @@ export default class Auth {
   };
 
   login(ctx, next){
-    console.log('==== login auth passport ====', this);
 
     return this.passport.authenticate('local', function(user, info, status) {
       if (user === false) {

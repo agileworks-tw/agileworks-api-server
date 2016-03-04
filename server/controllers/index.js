@@ -1,5 +1,6 @@
 import mainController from './main';
 import AuthController from './auth';
+import CouponController from './coupon';
 
 import Router from 'koa-router';
 import fs from 'fs';
@@ -12,6 +13,7 @@ export default class Routes {
     this.router = router;
     this.app = app;
     this.authController = new AuthController(passport);
+    this.couponController = new CouponController();
     this.passport = passport;
 
   }
@@ -21,9 +23,7 @@ export default class Routes {
     var publicRoute = new Router()
 
     publicRoute.get('/rest/hello/', mainController.hello);
-    publicRoute.get('/auth/login/', (ctx, next) => {
-      ctx.render('login.jade', {title:'BOOM!'});
-    })
+    publicRoute.get('/coupon/index/', this.couponController.index);
 
 
     publicRoute.get('/rest/auth/logout', function(ctx) {
@@ -37,13 +37,13 @@ export default class Routes {
 
     app.use(publicRoute.middleware())
 
-    app.use(function(ctx, next) {
-      if (ctx.isAuthenticated()) {
-        return next()
-      } else {
-        ctx.redirect('/')
-      }
-    })
+    // app.use(function(ctx, next) {
+    //   if (ctx.isAuthenticated()) {
+    //     return next()
+    //   } else {
+    //     ctx.redirect('/')
+    //   }
+    // })
 
     // app.use(route.get('/app', function(ctx) {
     //
