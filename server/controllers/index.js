@@ -21,16 +21,10 @@ export default class Routes {
     var publicRoute = new Router()
 
     publicRoute.get('/rest/hello/', mainController.hello);
-    publicRoute.get('/auth/login', (ctx) => {
-      this.render('login', {assets})
+    publicRoute.get('/auth/login/', (ctx, next) => {
+      ctx.render('login.jade', {title:'BOOM!'});
     })
 
-    // publicRoute.post('/login',
-    //   this.passport.authenticate('local', {
-    //     successRedirect: '/',
-    //     failureRedirect: '/'
-    //   })
-    // )
 
     publicRoute.get('/rest/auth/logout', function(ctx) {
       ctx.logout()

@@ -24,6 +24,7 @@ import convert from 'koa-convert';
 
 import session from 'koa-generic-session';
 import passport from 'koa-passport';
+import jade from 'koa-jade-render';
 
 
 global.appConfig = config;
@@ -74,10 +75,7 @@ if (environment === 'development') {
 
 }
 
-
-// app.use(convert(mount('/public/assets/js', staticCache(path.join(__dirname, '../public/assets/js/'), {maxAge: 30 * 24 * 60 * 60}))));
-// app.use(convert(mount('/public/assets/images', staticCache(path.join(__dirname, '../public/assets/images/'), {maxAge: 30 * 24 * 60 * 60}))));
-// app.use(convert(mount('/public/assets/css', staticCache(path.join(__dirname, '../public/assets/css/'), {maxAge: 30 * 24 * 60 * 60}))));
+app.use(jade(path.join(__dirname, 'views')));
 
 global.services = new Services();
 var controllers = new Controllers(app, passport);
