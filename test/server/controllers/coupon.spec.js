@@ -1,5 +1,5 @@
 
-describe.only("coupon", () => {
+describe("coupon", () => {
 
   describe("use", done => {
     let coupon = {};

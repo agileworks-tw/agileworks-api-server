@@ -10,7 +10,7 @@ block body
         .promotion
           h3 Jenkins Workshop
           
-          form(method='post', action='/rest/auth/register')
+          form(method='post', action='/auth/register')
             input(type='hidden', name='[coupon][serial]', value=serial)
             .form-group
               label(for='email') 

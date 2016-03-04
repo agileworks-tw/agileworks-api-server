@@ -34,4 +34,47 @@ export default class Auth {
       ctx.render('auth/signup.jade', {serial});
     });
   };
+
+  async register(ctx, next){
+
+    try {
+      let {body} = ctx.request;
+      let {user, coupon} = body;
+      let {serial} = coupon;
+      let couponFinded = await models.Coupon.find({where: {serial}});
+      let userCreated = await models.User.create(user);
+      await userCreated.addCoupons(couponFinded);
+
+      let loginUser =  await models.User.findOne({
+        where: {id: userCreated.id},
+        include: models.Coupon
+      });
+
+      await ctx.login(loginUser.toJSON());
+
+      ctx.redirect('/auth/info')
+
+    } catch (e) {
+      throw e;
+    }
+
+  };
+
+  async info(ctx, next){
+
+    try {
+
+      let user = services.auth.getSessionUser(ctx);
+      return next().then(()=>{
+        ctx.render('auth/info.jade', {user});
+      });
+
+
+    } catch (e) {
+      throw e;
+    }
+
+  };
+
+
 }

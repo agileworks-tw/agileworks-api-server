@@ -1,12 +1,43 @@
 describe('auth', () => {
-  describe('sinup', function() {
-    it('should be add a user', function() {
-      let userData = {
-        email: 'test@gmail.com',
-        password: '123456',
-        username: 'test'
-      };
-      let result = await request.post("/rest/auth/register/").send(userData);
+  describe.only('sinup', async done => {
+    let coupon = {};
+    before(async done => {
+      try {
+        let couponData = {
+          serial: 'test',
+          class: 'jenkins',
+          type: 'normal'
+        }
+        coupon = await models.Coupon.create(couponData);
+
+        done();
+
+      } catch (e) {
+        done(e);
+      }
+    })
+    it('should be add a user', async (done) => {
+
+      try {
+        let userData = {
+          user: {
+            email: 'test@gmail.com',
+            password: '123456',
+            username: 'test'
+          },
+          coupon: {
+            serial: 'test'
+          }
+        };
+        let result = await request.post("/auth/register/").send(userData);
+        result.headers.location.should.be.eq(`/auth/info`);
+        result.statusCode.should.be.eq(302);
+        done();
+      } catch (e) {
+        done(e);
+      }
+
+
 
     });
   });

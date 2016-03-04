@@ -12,4 +12,20 @@ export default class Auth {
       return ctx.session.passport.user;
     }
 
+    // register(ctx){
+    //   try {
+    //     let couponFinded = await models.Coupon.find({where: {serial}});
+    //     let userCreated = await models.User.create(user);
+    //     userCreated.addCoupons(couponFinded);
+    //   } catch (e) {
+    //
+    //     throw e;
+    //
+    //   }
+
+    // }
+
+
+
+
 }

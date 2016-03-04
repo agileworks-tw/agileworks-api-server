@@ -1,0 +1,37 @@
+extends ../layout
+
+
+block body
+  #home.container(style='max-width:800px;margin-top:100px;')
+    .row
+      .col-sm-4
+        img.img-thumbnail(src='/public/assets/images/book-cover.jpg', alt='book', width='280')
+      .col-sm-8
+        .promotion
+          h3 Coupon Info 
+
+          h4 Class
+          p=user.Coupons[0].class
+
+
+          h3 User Info 
+                    
+          form
+            .form-group
+              h4 email
+              p=user.email
+            .form-group
+              h4 username
+              p=user.username
+
+            button.btn.btn-primary(type='submit') start
+      .col-xs-12
+        .copyright
+          | 創科資訊・敏捷軟體開發培訓
+          br
+          | Tel: (04)2201-9020
+          br
+          br
+          | AgileWorks - Agile Programming Best Practices
+          br
+          | Copyright © Trunk Studio
