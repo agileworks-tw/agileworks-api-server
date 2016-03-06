@@ -15,11 +15,13 @@ export default class Auth {
 
     return this.passport.authenticate('local', function(user, info, status) {
       if (user === false) {
-        ctx.status = 401
-        ctx.body = { success: false }
+
+        // ctx.body = { success: false }
+        ctx.redirect('http://agileworks.tw/jenkins/');
       } else {
-        ctx.body = { success: true }
-        return ctx.login(user)
+        // ctx.body = { success: true }
+        ctx.login(user)
+        ctx.redirect('http://agileworks.tw/jenkins/dashboard');
       }
     })(ctx, next)
 
