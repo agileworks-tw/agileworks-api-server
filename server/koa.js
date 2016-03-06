@@ -25,7 +25,7 @@ import convert from 'koa-convert';
 import session from 'koa-generic-session';
 import passport from 'koa-passport';
 import jade from 'koa-jade-render';
-
+import cors from 'koa-cors';
 
 global.appConfig = config;
 
@@ -38,8 +38,9 @@ const app = new koa();
 
 
 // do not use this secret for production
-const secret = config.secret;
+const secret = config.secret
 
+app.use(convert(cors()));
 app.use(koaBodyParser());
 
 

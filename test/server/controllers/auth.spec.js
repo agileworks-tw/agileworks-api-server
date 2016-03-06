@@ -1,5 +1,5 @@
 describe('auth', () => {
-  describe.only('sinup', async done => {
+  describe('sinup', async done => {
     let coupon = {};
     before(async done => {
       try {
@@ -42,7 +42,7 @@ describe('auth', () => {
     });
   });
 
-  describe('local login spec', () => {
+  describe.only('local login spec', () => {
 
     before(async (done) => {
 
@@ -58,12 +58,12 @@ describe('auth', () => {
 
     it('do login should be success.', async (done) => {
       let loginUserFormData = {
-        'username': 'test',
+        'email': 'test@test.com',
         'password': 'test'
       };
 
       let loginResult = await new Promise((resolve, reject) => {
-        request.post('/rest/auth/login')
+        request.post('/login/auth')
         .send(loginUserFormData)
         .expect(200)
         .end((error, res) => {

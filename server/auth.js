@@ -12,9 +12,11 @@ passport.deserializeUser(function(id, done) {
 })
 
 var LocalStrategy = require('passport-local').Strategy
-passport.use(new LocalStrategy(async (username, password, done) => {
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+  }, async (username, password, done) => {
   let loginInfo = {
-    where: {username, password}
+    where: {email: username, password}
   };
 
   console.log('=== loginInfo ===', loginInfo);
