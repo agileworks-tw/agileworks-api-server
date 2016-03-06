@@ -5,24 +5,24 @@ block body
   #home.container(style='max-width:800px;margin-top:100px;')
     .row
       .col-sm-4
-        img.img-thumbnail(src='/public/assets/images/book-cover.jpg', alt='book', width='280')
+        img.img-fluid(src='/public/assets/images/jenkins-logo.png', alt='jenkins')
       .col-sm-8
         .promotion
           h3 Jenkins Workshop
           
           form(method='post', action='/auth/register')
             .form-group
-              label(for='coupon') 
-              input#coupon.form-control(type='text', placeholder='coupon', name='[coupon][serial]')
+              label(for='coupon') 註冊碼
+              input#coupon.form-control(type='text', placeholder='Coupon', name='[coupon][serial]')
             .form-group
-              label(for='email') 
-              input#email.form-control(type='email', placeholder='email', name='[user][email]')
+              label(for='email') 帳號（Email）
+              input#email.form-control(type='email', placeholder='Email', name='[user][email]')
             .form-group
-              label(for='password') 
-              input#password.form-control(type='password', placeholder='password', name='[user][password]')
+              label(for='password') 密碼（Password）
+              input#password.form-control(type='password', placeholder='Password', name='[user][password]')
 
-
-            button#register.btn.btn-primary(type='submit', disabled) register
+            button#register.btn.btn-primary(type='submit', disabled) 註冊
+            a.btn.btn-link(href='http://agileworks.tw/jenkins') 取消
       .col-xs-12
         .copyright
           | 創科資訊・敏捷軟體開發培訓
