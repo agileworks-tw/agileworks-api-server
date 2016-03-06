@@ -36,7 +36,7 @@ export default class Routes {
       ctx.redirect('/')
     })
 
-    publicRoute.post('/rest/auth/login', this.authController.login.bind(this.authController));
+    publicRoute.post('/login/auth', this.authController.login.bind(this.authController));
     publicRoute.get('/signup', this.authController.signup);
     publicRoute.post('/auth/register', this.authController.register);
     publicRoute.get('/auth/info', this.authController.info);
