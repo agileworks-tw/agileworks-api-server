@@ -11,7 +11,7 @@ block body
           h3 Jenkins Workshop
           
           form(method='post', action='/auth/register')
-            .form-group
+            fieldset.form-group
               label(for='coupon') 註冊碼
               input#coupon.form-control(type='text', placeholder='Coupon', name='[coupon][serial]')
             .form-group
@@ -47,10 +47,15 @@ block body
           success: function(response) {
             console.log(response);
             
-            if(response.success)
+            if (response.success) {
+              $('#coupon').removeClass('form-control-danger').parent().removeClass('has-danger');
+              $('#coupon').addClass('form-control-success').parent().addClass('has-success');
               $('#register').prop('disabled', false);
+            }
             else {
-              alert(response.message)
+              $('#coupon').addClass('form-control-danger').parent().addClass('has-danger');
+              $('#coupon').removeClass('form-control-success').parent().removeClass('has-success');
+              alert(response.message);
               $('#register').prop('disabled', true);
             }
           }
