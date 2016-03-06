@@ -23,9 +23,12 @@ export default class Routes {
     var publicRoute = new Router()
 
     publicRoute.get('/rest/hello/', mainController.hello);
-    publicRoute.get('/', this.couponController.index);
+
+    publicRoute.get('/', this.authController.signup);
+    // publicRoute.get('/', this.couponController.index);
     publicRoute.get('/coupon/index/', this.couponController.index);
     publicRoute.post('/rest/coupon/use/', this.couponController.use);
+    publicRoute.post('/rest/coupon/check/', this.couponController.check);
 
 
     publicRoute.get('/rest/auth/logout', function(ctx) {
@@ -34,7 +37,7 @@ export default class Routes {
     })
 
     publicRoute.post('/rest/auth/login', this.authController.login.bind(this.authController));
-    publicRoute.get('/auth/signup/coupon/:serial', this.authController.signup);
+    publicRoute.get('/signup', this.authController.signup);
     publicRoute.post('/auth/register', this.authController.register);
     publicRoute.get('/auth/info', this.authController.info);
     publicRoute.get('/rest/auth/status', this.authController.status);

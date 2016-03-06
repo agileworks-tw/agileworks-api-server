@@ -11,19 +11,18 @@ block body
           h3 Jenkins Workshop
           
           form(method='post', action='/auth/register')
-            input(type='hidden', name='[coupon][serial]', value=serial)
+            .form-group
+              label(for='coupon') 
+              input#coupon.form-control(type='text', placeholder='coupon', name='[coupon][serial]')
             .form-group
               label(for='email') 
               input#email.form-control(type='email', placeholder='email', name='[user][email]')
-            .form-group
-              label(for='username') 
-              input#username.form-control(type='text', placeholder='username', name='[user][username]')
             .form-group
               label(for='password') 
               input#password.form-control(type='password', placeholder='password', name='[user][password]')
 
 
-            button.btn.btn-primary(type='submit') register
+            button#register.btn.btn-primary(type='submit', disabled) register
       .col-xs-12
         .copyright
           | 創科資訊・敏捷軟體開發培訓
@@ -34,3 +33,29 @@ block body
           | AgileWorks - Agile Programming Best Practices
           br
           | Copyright © Trunk Studio
+  
+  script(type='text/javascript').
+    $(function(){
+      $("#coupon").change(function(){
+        var serial = $("#coupon").val();
+        $.ajax({
+          url: '/rest/coupon/check/',
+          type: 'POST',
+          data: {
+            serial: serial
+          },
+          success: function(response) {
+            console.log(response);
+            
+            if(response.success)
+              $('#register').prop('disabled', false);
+            else {
+              alert(response.message)
+              $('#register').prop('disabled', true);
+            }
+          }
+        });
+      });
+
+    });
+    
