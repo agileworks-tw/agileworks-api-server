@@ -17,7 +17,7 @@ export default class Auth {
       if (user === false) {
 
         // ctx.body = { success: false }
-        ctx.redirect('http://agileworks.tw/jenkins/');
+        ctx.redirect('http://agileworks.tw/jenkins?msg=email+%E6%88%96+password+%E9%8C%AF%E8%AA%A4');
       } else {
         // ctx.body = { success: true }
         ctx.login(user)
