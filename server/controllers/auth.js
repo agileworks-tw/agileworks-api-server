@@ -11,17 +11,19 @@ export default class Auth {
     ctx.body = {isAuthenticated, sessionUser}
   };
 
-  login(ctx, next){
+  login(ctx, next) {
+
+    let course = ctx.params.course || 'jenkins';
 
     return this.passport.authenticate('local', function(user, info, status) {
       if (user === false) {
 
         // ctx.body = { success: false }
-        ctx.redirect('http://agileworks.tw/jenkins?msg=email+%E6%88%96+password+%E9%8C%AF%E8%AA%A4');
+        ctx.redirect('http://agileworks.tw/'+course+'?msg=email+%E6%88%96+password+%E9%8C%AF%E8%AA%A4');
       } else {
         // ctx.body = { success: true }
         ctx.login(user)
-        ctx.redirect('http://agileworks.tw/jenkins/dashboard');
+        ctx.redirect('http://agileworks.tw/'+course+'/dashboard');
       }
     })(ctx, next)
 
@@ -32,14 +34,17 @@ export default class Auth {
 
     // let {serial} = ctx.params;
 
-    return next().then(()=>{
-      ctx.render('auth/signup.jade');
+    return next().then(() => {
+      let course = ctx.params.course || 'jenkins';
+      ctx.render('auth/signup.jade', {title: course.charAt(0).toUpperCase() + course.slice(1), course: course});
     });
   };
 
   async register(ctx, next){
 
     try {
+      let course = ctx.params.course || 'jenkins';
+
       let {body} = ctx.request;
       let {user, coupon} = body;
       let {serial} = coupon;
@@ -54,7 +59,7 @@ export default class Auth {
 
       await ctx.login(loginUser.toJSON());
 
-      ctx.redirect('/auth/info')
+      ctx.redirect('/' + course + '/auth/info');
 
     } catch (e) {
       throw e;
@@ -67,10 +72,11 @@ export default class Auth {
     try {
 
       let user = services.auth.getSessionUser(ctx);
-      return next().then(()=>{
-        ctx.render('auth/info.jade', {user});
-      });
+      let course = ctx.params.course || 'jenkins';
 
+      return next().then(() => {
+        ctx.render('auth/info.jade', {user, course});
+      });
 
     } catch (e) {
       throw e;

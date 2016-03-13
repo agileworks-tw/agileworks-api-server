@@ -34,12 +34,13 @@ export default class Routes {
     publicRoute.get('/rest/auth/logout', function(ctx) {
       ctx.logout()
       ctx.redirect('/')
-    })
+    });
 
-    publicRoute.post('/login/auth', this.authController.login.bind(this.authController));
-    publicRoute.get('/signup', this.authController.signup);
-    publicRoute.post('/auth/register', this.authController.register);
-    publicRoute.get('/auth/info', this.authController.info);
+    publicRoute.post( '/:course/login/auth', this.authController.login.bind(this.authController));
+    publicRoute.get(  '/:course/signup', this.authController.signup);
+    publicRoute.post( '/:course/auth/register', this.authController.register);
+    publicRoute.get('/:course/auth/info', this.authController.info);
+
     publicRoute.get('/rest/auth/status', this.authController.status);
 
 

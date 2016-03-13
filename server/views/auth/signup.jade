@@ -5,12 +5,12 @@ block body
   #home.container(style='max-width:800px;margin-top:100px;')
     .row
       .col-sm-4
-        img.img-fluid(src='/public/assets/images/jenkins-logo.png', alt='jenkins')
+        img.img-fluid(src='/public/assets/images/'+course+'-logo.png', alt=course)
       .col-sm-8
         .promotion
-          h3 Jenkins Workshop
+          h3 #{title} Workshop
           
-          form(method='post', action='/auth/register')
+          form(method='post', action='/'+course+'/auth/register')
             fieldset.form-group
               label(for='coupon') 註冊碼
               input#coupon.form-control(type='text', placeholder='Coupon', name='[coupon][serial]')
@@ -22,7 +22,7 @@ block body
               input#password.form-control(type='password', placeholder='Password', name='[user][password]')
 
             button#register.btn.btn-primary(type='submit', disabled) 註冊
-            a.btn.btn-link(href='http://agileworks.tw/jenkins') 取消
+            a.btn.btn-link(href='http://agileworks.tw/'+course) 取消
       .col-xs-12
         .copyright
           | 創科資訊・敏捷軟體開發培訓
